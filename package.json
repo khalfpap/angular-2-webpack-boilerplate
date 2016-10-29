@@ -1,0 +1,11 @@
+{
+  "name": "angular-2-webpack-boilerplate",
+  "version": "0.1.0",
+  "description": "Angular 2 - Webpack Boilerplate",
+  "scripts": {},
+  "private": true,
+  "author": "Kraig Halfpap <kehalfpap@gmail.com> (http://halfpapstudios.com)",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
