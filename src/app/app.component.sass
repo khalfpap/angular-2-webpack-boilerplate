@@ -1,0 +1,22 @@
+@import '../styles/theming'
+
+@keyframes rock
+  0%
+    transform: rotate(-15deg)
+  50%
+    transform: rotate(15deg)
+  100%
+    transform: rotate(-15deg)
+
+.app-icon
+  margin-right: 5px
+  width: 2em
+  height: 2em
+  vertical-align: middle
+  animation: rock 2s ease-in infinite
+
+a
+  margin-left: 5px
+  border-bottom: 2px solid transparent
+a.active
+  border-bottom: 2px solid md-color($accent)

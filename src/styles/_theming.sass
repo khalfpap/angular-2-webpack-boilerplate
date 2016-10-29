@@ -1,0 +1,17 @@
+// Here we define a custom Material Design theme
+// Taken from https://github.com/angular/material2/blob/master/docs/theming.md
+
+@import '~@angular/material/core/theming/all-theme'
+// Plus imports for other components in your app.
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$primary: md-palette($md-indigo)
+$accent: md-palette($md-pink, A200, A100, A400)
+
+// The warn palette is optional (defaults to red).
+$warn: md-palette($md-red)
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: md-light-theme($primary, $accent, $warn)

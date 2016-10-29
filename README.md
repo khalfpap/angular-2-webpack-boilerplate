@@ -12,11 +12,14 @@ educational purposes. If you are looking to get started building your own Angula
 recommend a well supported project such as [angular-cli](https://github.com/angular/angular-cli)._
 
 ## Features
-* Development and production build processes using [Webpack](https://webpack.github.io/)
+* Sample Angular 2 app demonstrating basic implementation of Modules,
+Components and Services
+* Complete development and production build processes using [Webpack](https://webpack.github.io/)
 * Styling with [Sass](http://sass-lang.com/)
 * [TypeScript 2](http://www.typescriptlang.org/)
 * [@types](https://www.npmjs.com/%7Etypes) TypeScript definitions
-
+* Sample usage of [Material Design for Angular 2](https://github.com/angular/material2)
+themes and Components
 ---
 
 ## Setup
@@ -93,13 +96,29 @@ ng2-webpack-boilerplate
 │   ├─ webpack.common.js            // common webpack configuration for the development and production configurations
 │   ├─ webpack.dev.js               // webpack configuration for development; extends webpack.common.js
 │   └─ webpack.prod.js              // webpack configuration for bundling our application for production
+├─ public ...                       // Common location for media files, fonts and 3rd party source files.
+│                                   // Note that this folder will not be copied to the dist folder as
+│                                   // part of the build process. Instead, webpack will copy all referenced resources
+│                                   // to /dist/asset and update their associated reference appropriately
 ├─ src
 │   ├─ app                          // application folder
-│   │   └─ index.ts                 // main entry-point of our application
-│   ├─ styles ...                   // defines styles for the entire app
+│   │   ├─ readme ...               // implementation of the ReadmeComponent
+│   │   ├─ app.component.html       // the template for the AppComponent
+│   │   ├─ app.component.sass       // styles for the AppComponent
+│   │   ├─ app.component.ts         // defines the AppComponent; the root component for our app
+│   │   ├─ app.module.ts            // defines the AppModule which pulls our app together by bootstrapping
+│   │   │                           // the AppComponent, and registering app dependencies
+│   │   ├─ app.routing.ts           // defines routing for the AppModule
+│   │   └─ index.ts                 // main entry-point of our application responsible for bootstrapping the AppModule
+│   ├─ styles                       // defines styles for the entire app
+│   │   ├─ _fonts.sass              // font definitions
+│   │   ├─ _material.sass           // all Material Design styles
+│   │   ├─ _theming.sass            // defines a Material Design theme
+│   │   └─ index.sass               // the root Sass module for our global styles
 │   ├─ global.d.ts                  // defines any missing TypeScript type definitions
 │   ├─ index.ejs                    // template that defines the apps index.html
-│   └─ main.ts                      // responsible for loading and bootstrapping our app
+│   ├─ main.ts                      // responsible for loading and bootstrapping our app
+│   └─ polyfill.ts                  // imports all polyfills that are needed for Angular 2 to work in older browsers
 │
 ├─ .editorconfig                    // defines a base coding style to be applied to files throughout the project
 │                                   // the format is automatically recognized by many IDEs
@@ -107,6 +126,18 @@ ng2-webpack-boilerplate
 ├─ tsconfig.json                    // configures the TypeScript compiler
 └─ webpack.config.js                // defines the default Webpack configuration
 ```
+### File Naming Conventions
+
+| Type                 | File Name                        | Class Name             |
+| -------------------- | -------------------------------- | ---------------------- |
+| Component            | `fancy-pants.component.ts`       | `FancyPantsComponent`  |
+| Component Styles     | `fancy-pants.component.sass`     | —                      |
+| Component Template   | `fancy-pants.component.html`     | —                      |
+| Interface            | `fancy-pants.interface.ts`       | `FancyPantsInterface`  |
+| Module               | `fancy-pants.module.ts`          | `FancyPantsModule`     |
+| Router               | `fancy-pants.routing.ts`         | —                      |
+| Service              | `fancy-pants.service.ts`         | `FancyPantsService`    |
+
 ---
 
 ## Understanding Webpack
@@ -138,6 +169,7 @@ For example we define the following in `./config/webpack.common.js`:
 {
   entry: {
     // defines our entry chunks
+    'polyfills': './src/polyfills.ts',
     'main': './src/main.ts'
   }
 }

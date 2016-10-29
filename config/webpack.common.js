@@ -7,6 +7,7 @@ var helpers = require('./helpers');
 module.exports = {
   entry: {
     // defines our entry chunks
+    'polyfills': './src/polyfills.ts',
     'main': './src/main.ts'
   },
   resolve: {
@@ -19,8 +20,34 @@ module.exports = {
         test: /\.ts$/,
         loaders: [
           // a loader to transpile our Typescript code to ES5, guided by the tsconfig.json file
-          'awesome-typescript-loader'
+          'awesome-typescript-loader',
+          // Searches for templateUrl declarations inside of the Angular 2 Component metadata
+          // and replaces the paths with the corresponding require statement.
+          // The generated require statements will be handled by the html-loader.
+          'angular2-template-loader'
         ]
+      },
+
+      // HTML Loader
+      //
+      // Responsible for loading HTML as string. Thus all instances of require('./path/to/html.html')
+      // will be replaced with the corresponding HTML string within the bundle.
+      // Note that by default every local <img src="image.png"> in our HTML is required (require('./image.png')),
+      // which are in turn handled by the file loader.
+      {
+        test: /\.html$/,
+        loader: 'html'
+      },
+
+      // File Loader
+      //
+      // All referenced binary files are copied to dist/assets
+      // and their corresponding references are updated to reflect this new location.
+      // Note there are alternate file loaders that can support inlining certain types
+      // of files within our bundles.
+      {
+        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+        loader: 'file?name=assets/[name].[hash].[ext]'
       },
 
       // Common Styles Loader
@@ -47,6 +74,36 @@ module.exports = {
         // this loader performs all of the operation of the previous loader with the
         // exception of the sass-loader
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+      },
+
+      // Component Styles Loader
+      //
+      // The following two loaders handle import/require statements for .css/.sass/.scss files
+      // that reside within src/app.  Use the following syntax to import Component styles:
+      // @Component({
+      //   styles: [require('./path/to/file').toString()]
+      // })
+      //
+      // Note that this is a work-around. Using angular2-template-loader we are supposed to
+      // be able to write:
+      // @Component({
+      //   styleUrls: './path/to/file'
+      // })
+      // However, this only works with the raw-loader which prevents resolution of url(...) statements
+      {
+        test: /\.(sass|scss)$/,
+        include: helpers.root('src', 'app'),
+        loaders: ['css', 'postcss', 'sass?sourceMap']
+      },
+      {
+        test: /\.css$/,
+        include: helpers.root('src', 'app'),
+        loaders: ['css', 'postcss']
+      },
+
+      {
+        test: /\.md$/,
+        loader: "html!markdown"
       }
     ]
   },
@@ -54,6 +111,15 @@ module.exports = {
     autoprefixer({browsers: '>1%'})
   ],
   plugins: [
+    // The CommonsChunkPlugin establishes a hierarchy between the chunks which determines how
+    // dependencies are bundled. Specifically, common dependencies are included in the last
+    // entry chunk that imports said dependency.
+    // Note that normally every entry chunk has its own Webpack runtime. Only one such
+    // chunk can be loaded per page. The CommonChunkPlugin allows us to load multiple entry chunks
+    // by sharing a single runtime.
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['main', 'polyfills']
+    }),
     // The HtmlWebpackPlugin generates an index.html file based on our index.ejs template.
     // It will automatically inject the <script> and <link> references to the
     // JavaScript and CSS files generated in the Webpack output.
