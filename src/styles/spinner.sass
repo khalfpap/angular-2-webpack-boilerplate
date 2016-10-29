@@ -1,0 +1,40 @@
+.spinner-container
+  display: table
+  position: fixed
+  width: 100%
+  height: 100%
+
+  .spinner-inner
+    display: table-cell
+    vertical-align: middle
+    text-align: center
+
+    @keyframes spinner-anim
+      0%
+        opacity: 1
+      100%
+        opacity: 0
+
+    .spinner
+      display: inline-block
+      position: relative
+      background: none
+      width: 200px
+      height: 200px
+      transform: scale(0.6)
+
+    .spinner > div
+      opacity: 0
+      position: absolute
+      top: 80px
+      left: 93px
+      width: 8px
+      height: 40px
+      background: #626262
+      border-radius: 10px
+      animation: spinner-anim 1s ease-in infinite
+
+    @for $i from 1 through 12
+      .spinner > div:nth-of-type(#{$i})
+        transform: rotate(0deg + $i * 30) translate(0, -60px)
+        animation-delay: -0.5s + $i / 12
