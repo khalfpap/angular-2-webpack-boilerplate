@@ -8,6 +8,14 @@
   100%
     transform: rotate(-15deg)
 
+.app-brand
+  text-decoration: none
+  color: currentColor
+  border: 0 none
+  outline: none
+  &:visited
+    color: white
+
 .app-icon
   margin-right: 5px
   width: 2em
@@ -18,5 +26,5 @@
 a
   margin-left: 5px
   border-bottom: 2px solid transparent
-a.active
-  border-bottom: 2px solid md-color($accent)
+  &.active
+    border-bottom: 2px solid md-color($accent)
