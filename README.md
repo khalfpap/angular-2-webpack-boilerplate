@@ -3,33 +3,35 @@
 This project defines the basic project structure and build process needed to create an
 [Angular 2](https://angular.io/) web app. 
 
-It incorporates code and ideas from the following:
-* [Angular 2 Docs](https://angular.io/docs/ts/latest/)
-* [Tutorial: Tour of Heroes](https://angular.io/docs/ts/latest/tutorial/)
-
-_This project was created in my attempt to better understand Angular 2 and intended for
-educational purposes. If you are looking to get started building your own Angular 2 apps I would
-recommend a well supported project such as [angular-cli](https://github.com/angular/angular-cli)._
+> This project was created in my attempt to better understand Angular 2 and is intended for
+> educational purposes. If you are looking to get started building your own Angular 2 apps I would
+> recommend a well supported project such as [angular-cli](https://github.com/angular/angular-cli).
 
 ## Features
 * Sample Angular 2 app demonstrating basic implementation of Modules,
-Components and Services
-* Complete development and production build processes using [Webpack](https://webpack.github.io/)
+  Components and Services
+* Complete development and production build processes using [Webpack](https://webpack.github.io/);
+  based on [Webpack: An Introduction](https://angular.io/docs/ts/latest/guide/webpack.html)
+* Support for unit testing with [Jasmine](http://jasmine.github.io/) (assertion library),
+  [Karma](https://karma-runner.github.io/1.0/index.html) (test runner) and
+  [Phantom.js](http://phantomjs.org/) (test environment)
+* Sample unit tests for Angular 2 Components and Services
 * Styling with [Sass](http://sass-lang.com/)
 * [TypeScript 2](http://www.typescriptlang.org/)
 * TypeScript linting (static code analysis) with [TSLint](https://github.com/palantir/tslint)
 * The [Codelyzer](https://github.com/mgechev/codelyzer#codelyzer ) TSLint rule set to
-enforce the [Angular 2 Style Guide](https://angular.io/styleguide)
+  enforce the [Angular 2 Style Guide](https://angular.io/styleguide)
 * TypeScript definitions from the [@types](https://www.npmjs.com/%7Etypes) project 
 * Sample usage of [Material Design for Angular 2](https://github.com/angular/material2)
-themes and Components
+  themes and Components
+
 ---
 
 ## Setup
 
 ### Requirement
 * [Node](https://nodejs.org/en/) >= 6.0
-([Node Version Manager](https://github.com/creationix/nvm) is recommended)
+  ([Node Version Manager](https://github.com/creationix/nvm) is recommended)
 * [npm](https://docs.npmjs.com/) >= 3.0 (typically bundled with node)
 
 ### Installation
@@ -65,6 +67,14 @@ The `build` script executes Webpack using the production configuration
 (`./config/webpack.dev.js`) and outputs the result to `./dist`.
 The resulting package include all application code, dependencies and assets;
 and is ready for deployment.
+
+### Run Unit Tests
+```bash
+npm run test
+```
+
+The `test` script launches the Karma test runner and executes all unit tests
+matching `./src/app/**/*.spec.ts`.
 
 ### Run TypeScript Linter
 ```bash
@@ -117,7 +127,7 @@ TSLint support can be enabled by installing the
 
 #### Enable TypeScript Support
 1. Navigate to "Settings" => "Languages & Frameworks" and ensure that "Node Interpreter"
-is set to the correct version.
+  is set to the correct version.
 2. Update the "TypeScript version" to point to our local copy at `/path/to/project/node_modules/typescript/lib`.
 3. Ensure that the TypeScript compiler is disabled. Compilation will happen as part of our
 Webpack build process.
@@ -135,12 +145,16 @@ Webpack build process.
 ```text
 ng2-webpack-boilerplate
 ├─ config                           // contains code related to the build process and test runner
+│   ├─ karma-test-shim.js           // a Karma preprocessor that is run to configure the test environment and import 
+│   │                               // all tests that need to be run  
+│   ├─ karma.conf.js                // configuration for the Karma test runner
 │   ├─ webpack.common.js            // common webpack configuration for the development and production configurations
 │   ├─ webpack.dev.js               // webpack configuration for development; extends webpack.common.js
-│   └─ webpack.prod.js              // webpack configuration for bundling our application for production
+│   ├─ webpack.prod.js              // webpack configuration for bundling our application for production
+│   └─ webpack.test.js              // webpack configuration needed to bundle our code for testing
 ├─ public ...                       // Common location for media files, fonts and 3rd party source files.
 │                                   // Note that this folder will not be copied to the dist folder as
-│                                   // part of the build process. Instead, webpack will copy all referenced resources
+│                                   // part of the build process. Instead, Webpack will copy all referenced resources
 │                                   // to /dist/asset and update their associated reference appropriately
 ├─ src
 │   ├─ app                          // application folder
@@ -164,6 +178,7 @@ ng2-webpack-boilerplate
 │
 ├─ .editorconfig                    // defines a base coding style to be applied to files throughout the project
 │                                   // the format is automatically recognized by many IDEs
+├─ karma.conf.js                    // defines the Karma test runner configuration
 ├─ package.json                     // npm module configuration; details project dependencies, metadata and scripts
 ├─ tsconfig.json                    // configures the TypeScript compiler
 ├─ tslint.json                      // configures the TypeScript linter TSLint (http://palantir.github.io/tslint/)
@@ -177,10 +192,12 @@ ng2-webpack-boilerplate
 | Component            | `fancy-pants.component.ts`       | `FancyPantsComponent`  |
 | Component Styles     | `fancy-pants.component.sass`     | —                      |
 | Component Template   | `fancy-pants.component.html`     | —                      |
+| Component Unit Test  | `fancy-pants.component.spec.ts`  | —                      |
 | Interface            | `fancy-pants.interface.ts`       | `FancyPantsInterface`  |
 | Module               | `fancy-pants.module.ts`          | `FancyPantsModule`     |
 | Router               | `fancy-pants.routing.ts`         | —                      |
-| Service              | `fancy-pants.service.ts`         | `FancyPantsService`    |
+| Service              | `fancy-pants.service.ts`         | `FancyPantsService`    | 
+| Service Unit Test    | `fancy-pants.service.spec.ts`    | —                      |
 
 ---
 
@@ -247,10 +264,10 @@ transform a given resource into something that can be included in a bundle.
 
 Here are some of the loaders used in the project:
 * The [style-loader](https://github.com/webpack/style-loader) allows CSS to be included
-in a bundle (using a require() statement). CSS that is bundled in this way is injected
-into the DOM by the Webpack runtime.
+  in a bundle (using a require() statement). CSS that is bundled in this way is injected
+  into the DOM by the Webpack runtime.
 * The [awsome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader) can be used to
-transpile TypeScript into JavaScript so that it can be included in the bundle.
+  transpile TypeScript into JavaScript so that it can be included in the bundle.
 
 ### Asynchronous Module Loading
 The Webpack _code splitting_ feature allows us to load modules asynchronously. _Code splitting_ is the

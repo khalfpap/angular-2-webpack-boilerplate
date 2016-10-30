@@ -13,4 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   themes and Components
 - TypeScript linting (static code analysis) with [TSLint](https://github.com/palantir/tslint)
 - The [Codelyzer](https://github.com/mgechev/codelyzer#codelyzer ) TSLint rule set to
-enforce the [Angular 2 Style Guide](https://angular.io/styleguide)
+  enforce the [Angular 2 Style Guide](https://angular.io/styleguide)
+- Support for unit testing with [Jasmine](http://jasmine.github.io/) (assertion library),
+  [Karma](https://karma-runner.github.io/1.0/index.html) (test runner) and
+  [Phantom.js](http://phantomjs.org/) (test environment)
+- Sample unit tests for Angular 2 Components and Services
