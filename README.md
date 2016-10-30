@@ -17,7 +17,10 @@ Components and Services
 * Complete development and production build processes using [Webpack](https://webpack.github.io/)
 * Styling with [Sass](http://sass-lang.com/)
 * [TypeScript 2](http://www.typescriptlang.org/)
-* [@types](https://www.npmjs.com/%7Etypes) TypeScript definitions
+* TypeScript linting (static code analysis) with [TSLint](https://github.com/palantir/tslint)
+* The [Codelyzer](https://github.com/mgechev/codelyzer#codelyzer ) TSLint rule set to
+enforce the [Angular 2 Style Guide](https://angular.io/styleguide)
+* TypeScript definitions from the [@types](https://www.npmjs.com/%7Etypes) project 
 * Sample usage of [Material Design for Angular 2](https://github.com/angular/material2)
 themes and Components
 ---
@@ -63,13 +66,54 @@ The `build` script executes Webpack using the production configuration
 The resulting package include all application code, dependencies and assets;
 and is ready for deployment.
 
+### Run TypeScript Linter
+```bash
+npm run tslint
+```
+
+Runs TSLint against all TypeScript files in the `./src` folder and prints any violations
+in the console.
+
+#### TSLint configuration
+The linter rules are configured in `./tslint.json`. It is currently using the
+[recommended Codelyzer rules](https://github.com/mgechev/codelyzer#recommended-configuration) 
+to enforce the official [Angular 2 Style Guide](https://angular.io/styleguide).
+
+Most of the linter rules are generic and can be used in any project without modification
+except for the following:
+```javascript
+  "rules": {
+    "directive-selector-prefix": [true, "awb"],
+    "component-selector-prefix": [true, "awb"],
+    "pipe-naming": [true, "camelCase", "awb"]
+  }
+```
+The string `"awb"` refers to the initials of this project. See
+[Custom Prefix for Components](https://angular.io/docs/ts/latest/guide/style-guide.html#!#02-07)
+for more information.
+
 ---
 
-## Configure IDE
+## IDE Configuration 
 
-### JetBrains WebStorm
-JetBrains PhpStorm/WebStorm provides broad support for web technologies and requires minor configuration for
-TypeScript and Angular 2 integration.
+### Visual Studio Code
+Configuration is handled by `./.vscode/settings.json`.
+
+#### Enable TypeScript Support
+Visual Studio Code provides TypeScript support out of the box. However, in order to
+ensure it is using the TypeScript SDK belonging to the project you should
+add the following to `./.vscode/settings.json`:
+```javascript
+{
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
+```
+
+#### Enable TypeScript Linter Support
+TSLint support can be enabled by installing the
+[TSLint plugin](https://marketplace.visualstudio.com/items?itemName=eg2.tslint).
+
+### JetBrains WebStorm/PhpStorm
 
 #### Enable TypeScript Support
 1. Navigate to "Settings" => "Languages & Frameworks" and ensure that "Node Interpreter"
@@ -78,12 +122,10 @@ is set to the correct version.
 3. Ensure that the TypeScript compiler is disabled. Compilation will happen as part of our
 Webpack build process.
 
-### Visual Studio Code
-* Provides almost complete support out of the box
-* Requires an additional plugin for Sass
-* Requires that the `typescript.tsdk` property in `./.vscode/settings.json`
-reference our local copy at `node_modules/typescript/lib`
-(this configuration file is included in this project by default)
+#### Enable TypeScript Linter Support
+1. Navigate to "Settings" => "Languages & Frameworks" => "TypeScript" => "TSLint"
+2. Ensure that "Node Interpreter" is set to the correct version.
+3. Update "TSLint package" to reference our local copy at `/path/to/project/node_modules/tslint`.
 
 ---
 
@@ -124,8 +166,10 @@ ng2-webpack-boilerplate
 │                                   // the format is automatically recognized by many IDEs
 ├─ package.json                     // npm module configuration; details project dependencies, metadata and scripts
 ├─ tsconfig.json                    // configures the TypeScript compiler
+├─ tslint.json                      // configures the TypeScript linter TSLint (http://palantir.github.io/tslint/)
 └─ webpack.config.js                // defines the default Webpack configuration
 ```
+
 ### File Naming Conventions
 
 | Type                 | File Name                        | Class Name             |
