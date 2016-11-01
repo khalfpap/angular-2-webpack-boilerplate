@@ -6,7 +6,7 @@ var helpers = require('./helpers');
 
 module.exports = {
   entry: {
-    // defines our entry chunks
+    // defines our two bundle entry points named "polyfills" and "main"
     'polyfills': './src/polyfills.ts',
     'main': './src/main.ts'
   },

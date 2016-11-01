@@ -8,13 +8,18 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = webpackMerge(commonConfig, {
   devtool: 'source-map',
-  // output bundles to dist
+  // defines how the bundles are outputted
   output: {
+    // output directory
     path: helpers.root('dist'),
+    // the base URL from which the output files will be served
     publicPath: '/',
-    // bundles with cache-busting hash
+    // defines the name of an entry point bundle file
+    // "name" refers to the entry point name
+    // "hash" is a cache-busting hash
     filename: '[name].[hash].js',
-    chunkFilename: '[id].[hash].chunk.js'
+    // defines the name of non-entry point chunks
+    chunkFilename: '[name].[hash].chunk.js'
   },
   htmlLoader: {
     minimize: false // workaround for ng2
@@ -22,7 +27,7 @@ module.exports = webpackMerge(commonConfig, {
   plugins: [
     // terminates build if an error occurs
     new webpack.NoErrorsPlugin(),
-    // removes identical and nearly identical files and removes from output
+    // removes identical and nearly identical files from output
     new webpack.optimize.DedupePlugin(),
     // minify js
     new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618

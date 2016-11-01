@@ -3,7 +3,7 @@
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - 2016-10-29
+## [1.0.0] - 2016-10-30
 ### Added
 - Development and production build processes using [Webpack](https://webpack.github.io/)
 - Support for styling with [Sass](http://sass-lang.com/)
@@ -18,3 +18,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   [Karma](https://karma-runner.github.io/1.0/index.html) (test runner) and
   [Phantom.js](http://phantomjs.org/) (test environment)
 - Sample unit tests for Angular 2 Components and Services
+- Simple Todo app based on [Material Todo](https://github.com/danielzen/material-todo)

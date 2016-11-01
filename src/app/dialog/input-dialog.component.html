@@ -1,0 +1,23 @@
+<div class="overlay">
+  <md-card class="dialog">
+    <md-toolbar color="primary">
+      {{title}}
+    </md-toolbar>
+    <md-card-content class="content">
+      <md-input #input
+                class="input"
+                [placeholder]="placeholder"
+                [(ngModel)]="value"
+                (keyup.enter)="emitValue(value)"
+                (keyup.escape)="emitValue(null)"></md-input>
+    </md-card-content>
+    <md-card-actions class="actions">
+      <button md-button
+              (click)="emitValue(null)"
+              color="primary">{{cancelText}}</button>
+      <button md-raised-button
+              (click)="emitValue(value)"
+              color="primary">{{okText}}</button>
+    </md-card-actions>
+  </md-card>
+</div>

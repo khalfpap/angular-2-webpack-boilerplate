@@ -1,0 +1,66 @@
+<header class="hero">
+  <h1 class="hero-title">
+    {{title}}
+  </h1>
+</header>
+<md-card class="todo-app">
+  <md-toolbar color="primary">
+    Todo
+    <span class="app-toolbar-filler"></span>
+    <button md-mini-fab (click)="showCreateTodoDialog()">
+      <md-icon>add</md-icon>
+    </button>
+  </md-toolbar>
+  <md-card-content>
+    <md-list *ngIf="todos.length">
+      <form>
+        <md-list-item *ngFor="let todo of todos; let index=index">
+          <div class="list-item">
+            <md-checkbox color="primary"
+                         class="checkbox"
+                         type="checkbox"
+                         [name]="'item'+index"
+                         (ngModelChange)="toggleCompleted(todo)"
+                         [ngModel]="todo.completed">
+              <span [class.completed]="todo.completed">{{todo.title}}</span>
+            </md-checkbox>
+            <button md-mini-fab
+                    (click)="showEditDialog(todo)"
+                    color="primary"
+                    [disabled]="todo.completed">
+              <md-icon>mode_edit</md-icon>
+            </button>
+            <button md-mini-fab
+                    (click)="showConfirmDeleteAlert(todo)"
+                    color="primary">
+              <md-icon>delete</md-icon>
+            </button>
+          </div>
+        </md-list-item>
+      </form>
+    </md-list>
+    <p class="credit"><em>Based on <a href="https://github.com/danielzen/material-todo">Material Todo</a></em></p>
+  </md-card-content>
+</md-card>
+
+<awb-input-dialog *ngIf="createTodoDialogIsVisible"
+                  [title]="'New Todo'"
+                  [placeholder]="'What do you need to do?'"
+                  [okText]="'Create'"
+                  [value]="''"
+                  (valueEmitted)="createTodo($event)">
+</awb-input-dialog>
+
+<awb-input-dialog *ngIf="todoToEdit"
+                  [title]="'Edit Todo'"
+                  [placeholder]="'What do you need to do?'"
+                  [okText]="'Save'"
+                  [value]="todoToEdit.title"
+                  (valueEmitted)="editTodoTitle($event)">
+</awb-input-dialog>
+
+<awb-alert-dialog *ngIf="todoToDelete"
+                  [title]="'Delete Todo'"
+                  [message]="deleteMessage"
+                  (valueEmitted)="confirmDelete($event)">
+</awb-alert-dialog>

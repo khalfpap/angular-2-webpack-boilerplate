@@ -17,7 +17,7 @@ describe('ReadmeService', () => {
 
   describe('ReadmeService#getReadmeHTML', () => {
     it('should return some html', inject([ReadmeService], (service: ReadmeService) => {
-      let html = service.getReadmeHTML()
+      let html = service.getReadmeHTML();
       expect(typeof html).toBe('string');
       expect(html[0]).toBe('<');
     }));

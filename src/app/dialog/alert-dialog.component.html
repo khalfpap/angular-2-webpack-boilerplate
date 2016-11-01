@@ -1,0 +1,19 @@
+<div class="overlay">
+  <md-card class="dialog">
+    <md-toolbar color="primary">
+      {{title}}
+    </md-toolbar>
+    <md-card-content class="content">
+      <p>{{message}}</p>
+    </md-card-content>
+    <md-card-actions class="actions">
+      <button md-button
+              #cancel
+              (click)="emitValue(false)"
+              color="primary">{{cancelText}}</button>
+      <button md-raised-button
+              (click)="emitValue(true)"
+              color="primary">{{okText}}</button>
+    </md-card-actions>
+  </md-card>
+</div>
