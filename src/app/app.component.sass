@@ -13,18 +13,28 @@
   color: currentColor
   border: 0 none
   outline: none
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
   &:visited
     color: white
 
 .app-icon
   margin-right: 5px
-  width: 2em
-  height: 2em
+  width: 40px
+  height: 40px
   vertical-align: middle
   animation: rock 2s ease-in infinite
 
-a
-  margin-left: 5px
-  border-bottom: 2px solid transparent
+.github-icon
+  width: 32px
+  height: 32px
+  vertical-align: middle
+  margin-left: 10px
+
+.nav-link
+  min-width: auto
+  margin-right: 8px
+  border-bottom: 3px solid transparent
   &.active
     border-bottom: 2px solid md-color($accent)
