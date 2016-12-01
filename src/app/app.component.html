@@ -1,13 +1,13 @@
-<md-toolbar color="primary">
+<header>
   <a class="app-brand" routerLink="/">
     <img class="app-icon" src="../../public/images/angular.png">
-    {{title}}
+    <h1>{{title}}</h1>
   </a>
-  <span class="app-toolbar-filler"></span>
+  <span class="header-filler"></span>
   <a md-button class="nav-link" routerLink="/readme" routerLinkActive="active">README.md</a>
-  <a md-button  class="nav-link" routerLink="/todo" routerLinkActive="active">Todo App</a>
+  <a md-button class="nav-link" routerLink="/todo" routerLinkActive="active">Todo App</a>
   <a href="https://github.com/khalfpap/angular-2-webpack-boilerplate">
     <img class="github-icon" src="../../public/images/github.png" />
   </a>
-</md-toolbar>
+</header>
 <router-outlet></router-outlet>

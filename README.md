@@ -11,7 +11,7 @@ This project defines the basic project structure and build process needed to cre
 * Sample Angular 2 app demonstrating basic implementation of Modules, Components and Services
 * Complete development and production build processes using [Webpack](https://webpack.github.io/)
   (based on [Webpack: An Introduction](https://angular.io/docs/ts/latest/guide/webpack.html))
-* Support for unit testing with [Jasmine](http://jasmine.github.io/) (assertion library),
+* Support for unit testing with [Jasmine](http://jasmine.github.io/) (testing framework),
   [Karma](https://karma-runner.github.io/1.0/index.html) (test runner) and
   [Phantom.js](http://phantomjs.org/) (test environment)
 * Sample unit tests for Angular 2 Components and HTTP backed Services
@@ -31,7 +31,7 @@ This project defines the basic project structure and build process needed to cre
 
 ## Setup
 
-### Requirement
+### Requirements
 * [Node](https://nodejs.org/en/) >= 6.0
   ([Node Version Manager](https://github.com/creationix/nvm) is recommended)
 * [npm](https://docs.npmjs.com/) >= 3.0 (typically bundled with node)
@@ -70,12 +70,20 @@ The output will contain everything needed to deploy the app including
 bundled static resources.
 
 ### Run Unit Tests
+The following scripts launch the Karma test server and execute all unit tests
+matching `./src/app/**/*.spec.ts`.
+
+#### Run Once
 ```bash
-npm run test
+npm test
 ```
 
-The `test` script launches the Karma test runner and executes all unit tests
-matching `./src/app/**/*.spec.ts`.
+#### Run on Change
+```bash
+npm run tests
+```
+
+The `tests` script will continually monitor the project for changes and run the tests in response.
 
 ### Run TypeScript Linter
 ```bash
