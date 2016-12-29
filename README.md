@@ -149,6 +149,14 @@ Webpack build process.
 
 ---
 
+## Project Configuration
+
+### Base URL
+The *Base URL* is the URL or absolute path from which the `./dist/` folder will be served.
+This value can be configured by updating `output.publicPath` in `./config/webpack.prod.js`. 
+
+---
+
 ## Project Conventions
 
 ### File Structure Overview
