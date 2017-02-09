@@ -315,5 +315,3 @@ Here is how it is defined in `./config/webpack.prod.js`:
   }
 }
 ```
-The full Webpack configuration documentation is available
-[here](https://webpack.github.io/docs/configuration.html#configuration-object-content).
