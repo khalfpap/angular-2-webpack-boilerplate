@@ -1,6 +1,6 @@
-var path = require('path');
+const path = require('path');
 
-var _root = path.resolve(__dirname, '..');
+const _root = path.resolve(__dirname, '..');
 
 // get the absolute path relative to the root of the project
 function root(args) {

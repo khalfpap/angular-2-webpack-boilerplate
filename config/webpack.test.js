@@ -3,32 +3,35 @@ var helpers = require('./helpers');
 module.exports = {
   devtool: 'inline-source-map',
   resolve: {
-    extensions: ['', '.js', '.ts', '.sass']
+    extensions: ['.js', '.ts', '.sass']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
-        loaders: [
+        use: [
           'awesome-typescript-loader',
           'angular2-template-loader'
         ]
       },
       {
         test: /\.html$/,
-        loader: 'html'
+        use: 'html-loader'
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'null'
+        use: 'null-loader'
       },
       {
         test: /\.(css|sass|scss)$/,
-        loader: 'null'
+        use: 'null-loader'
       },
       {
         test: /\.md$/,
-        loader: 'html!markdown'
+        use: [
+          'html-loader',
+          'markdown-loader'
+        ]
       }
     ]
   }

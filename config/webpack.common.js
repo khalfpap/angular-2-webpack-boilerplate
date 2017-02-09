@@ -1,8 +1,8 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var autoprefixer = require('autoprefixer');
-var helpers = require('./helpers');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const helpers = require('./helpers');
 
 module.exports = {
   entry: {
@@ -12,13 +12,13 @@ module.exports = {
   },
   resolve: {
     // sets precedence for extension resolution of modules references with no extension
-    extensions: ['', '.js', '.ts', '.sass']
+    extensions: ['.js', '.ts', '.sass']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
-        loaders: [
+        use: [
           // a loader to transpile our Typescript code to ES5, guided by the tsconfig.json file
           'awesome-typescript-loader',
           // Searches for templateUrl declarations inside of the Angular 2 Component metadata
@@ -36,7 +36,7 @@ module.exports = {
       // which are in turn handled by the file loader.
       {
         test: /\.html$/,
-        loader: 'html'
+        use: 'html-loader'
       },
 
       // File Loader
@@ -47,7 +47,7 @@ module.exports = {
       // of files within our bundles.
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file?name=assets/[name].[hash].[ext]'
+        use: 'file-loader?name=assets/[name].[hash].[ext]'
       },
 
       // Common Styles Loader
@@ -60,22 +60,52 @@ module.exports = {
       // standalone CSS file.
       {
         test: /\.(sass|scss)$/,
-        exclude: helpers.root('src', 'app'),
+        exclude: helpers.root('src/app'),
         // 1. sass - compiles Sass to CSS
         // 2. postcss - applies PostCSS plugins described below
         // 3. css - interprets @import and url(...) statements within our CSS like require()
         // 4. style - injects CSS into the DOM
         // 5. ExtractTextPlugin - groups all of the output of this loader into a standalone CSS bundle
-        loader: ExtractTextPlugin.extract('style', 'css!postcss!sass?sourceMap')
+        // loader: ExtractTextPlugin.extract('style', 'css!postcss!sass?sourceMap'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+                sourceMap: true
+              }
+            },
+            'postcss-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        })
       },
       {
         test: /\.css$/,
-        exclude: helpers.root('src', 'app'),
+        exclude: helpers.root('src/app'),
         // this loader performs all of the operation of the previous loader with the
         // exception of the sass-loader
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+                sourceMap: true
+              }
+            },
+            'postcss-loader'
+          ]
+        })
       },
-
       // Component Styles Loader
       //
       // The following two loaders handle import/require statements for .css/.sass/.scss files
@@ -92,24 +122,40 @@ module.exports = {
       // However, this only works with the raw-loader which prevents resolution of url(...) statements
       {
         test: /\.(sass|scss)$/,
-        include: helpers.root('src', 'app'),
-        loaders: ['css', 'postcss', 'sass?sourceMap']
-      },
-      {
+        include: helpers.root('src/app'),
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true
+            }
+          },
+          'postcss-loader',
+          'sass-loader'
+        ]
+      }, {
         test: /\.css$/,
-        include: helpers.root('src', 'app'),
-        loaders: ['css', 'postcss']
+        include: helpers.root('src/app'),
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true
+            }
+          },
+          'postcss-loader'
+        ]
       },
 
       {
         test: /\.md$/,
-        loader: 'html!markdown'
+        use: [
+          'html-loader',
+          'markdown-loader'
+        ]
       }
     ]
   },
-  postcss: [
-    autoprefixer({browsers: '>1%'})
-  ],
   plugins: [
     // The CommonsChunkPlugin establishes a hierarchy between the chunks which determines how
     // dependencies are bundled. Specifically, common dependencies are included in the last

@@ -1,4 +1,4 @@
-# Angular 2 - Webpack Boilerplate
+# Angular 2 - Webpack 2 Boilerplate
 
 This project defines the basic project structure and build process needed to create an
 [Angular 2](https://angular.io/) web app. 
@@ -9,7 +9,7 @@ This project defines the basic project structure and build process needed to cre
 
 ## Features
 * Sample Angular 2 app demonstrating basic implementation of Modules, Components and Services
-* Complete development and production build processes using [Webpack](https://webpack.github.io/)
+* Complete development and production build processes using [Webpack 2](https://webpack.js.org/)
   (based on [Webpack: An Introduction](https://angular.io/docs/ts/latest/guide/webpack.html))
 * Support for unit testing with [Jasmine](http://jasmine.github.io/) (testing framework),
   [Karma](https://karma-runner.github.io/1.0/index.html) (test runner) and
@@ -200,6 +200,7 @@ ng2-webpack-boilerplate
 │                                   // the format is automatically recognized by many IDEs
 ├─ karma.conf.js                    // defines the Karma test runner configuration
 ├─ package.json                     // npm module configuration; details project dependencies, metadata and scripts
+├─ postcss.config.js                // configures the PostCSS loader for Webpack
 ├─ tsconfig.json                    // configures the TypeScript compiler
 ├─ tslint.json                      // configures the TypeScript linter TSLint (http://palantir.github.io/tslint/)
 └─ webpack.config.js                // defines the default Webpack configuration
@@ -224,13 +225,28 @@ ng2-webpack-boilerplate
 ## Understanding Webpack
 _(my current understanding of Webpack)_
 
-[Webpack](https://webpack.github.io/) is a build tool for generating JavaScript
+Webpack is a build tool for generating JavaScript
 module bundles. A module bundle is a JavaScript file that contains all dependencies
-of some root module (entry point). The process is recursive and so it will bundle every module in the
+of some root module (entry point). The process is recursive; meaning it will bundle every module in the
 dependency tree of the root module.
 
 Webpack supports both CommonJS (i.e., export and require()), and AMD
 modules. This project uses CommonJS.
+
+### Bundling Everything
+Webpack has the ability to bundle non-JavaScript dependencies including TypeScript, CSS, and binary
+resources (such as images and web fonts). This is done through the use of specialized
+[loaders](https://webpack.js.org/concepts/#loaders) which transform a given resource
+into a module that can be included in the JavaScript bundle file.
+
+Some of the loaders demonstrated in this project include:
+* The [style-loader](https://github.com/webpack/style-loader) allows CSS to be included
+  in a bundle in the same way you would include a JavaScript module using a `require()` or `import` statement.
+  CSS that is bundled in this way is injected into the DOM by the Webpack runtime.
+* The [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader) can be used to
+  transpile TypeScript modules into JavaScript modules that can be included in the bundle.
+
+A list of popular loaders is available [here](https://github.com/webpack/webpack#loaders).
 
 ### Configuring Webpack
 In order for Webpack to function we must provide a configuration file. By default, Webpack will
@@ -239,6 +255,29 @@ look for a file called `./webpack.config.js` in the root of the project.
 This project includes several annotated Webpack configuration files including
 `./config/webpack.dev.js` for development and `./config/webpack.prod.js` to produce a
 production build. Both of these configurations inherit from `./config/webpack.common.js`.
+
+### Asynchronous Module Loading
+The Webpack **code splitting** feature allows us to load modules asynchronously. Code splitting is the
+process of breaking our bundles into "chunks" that can then be loaded on demand.
+We can define a new chunk using the `require.ensure` CommonJS method.
+
+For example, in our `main` entry point module (`./src/main.ts`) we define a new
+chunk named `app` which corresponds to our main app module defined at `./src/app/index.ts`:
+
+```javascript
+// here we create a chunk named "app" containing all our Angular 2 app code
+// this chunk will be loaded asynchronously
+require.ensure(['./app'], (require) => {
+  require('./app').bootstrap(); // bootstrap our app
+}, 'app');
+```
+
+The resulting output will include a `main.js` file for our `main` entry point;
+along with a file called `app.chunk.js` for our `app` chunk. The `main.js` file
+will be included in our `index.html` file while `app.chunk.js` will be loaded asynchronously.
+
+A good explanation of code splitting and the motivation behind it can be found at
+[Advanced WebPack Part 2 - Code Splitting](http://jonathancreamer.com/advanced-webpack-part-2-code-splitting/).
 
 ### Defining Entry Points
 Every Webpack configuration includes an `entry` object that defines the entry points for
@@ -278,41 +317,3 @@ Here is how it is defined in `./config/webpack.prod.js`:
 ```
 The full Webpack configuration documentation is available
 [here](https://webpack.github.io/docs/configuration.html#configuration-object-content).
-
-### Bundling Everything
-Webpack has the ability to bundle non-JavaScript dependencies including CSS and static
-resources such as images and fonts. This is done through the use of specialized
-[loaders](http://webpack.github.io/docs/loaders.html) which act as preprocessors to
-transform a given resource into something that can be included in a JavaScript bundle file.
-
-Some of the loaders demonstrated in this project include:
-* The [style-loader](https://github.com/webpack/style-loader) allows CSS to be included
-  in a bundle in the same way you would include a JavaScript module; using a `require()` or `import` statement.
-  CSS that is bundled in this way is injected into the DOM by the Webpack runtime.
-* The [awsome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader) can be used to
-  transpile TypeScript into JavaScript so that it can be included in the bundle.
-
-A list of popular loaders is available [here](https://github.com/webpack/webpack#loaders).
-
-### Asynchronous Module Loading
-The Webpack **code splitting** feature allows us to load modules asynchronously. Code splitting is the
-process of breaking our bundles into "chunks" that can then be loaded on demand.
-We can define a new chunk using the `require.ensure` CommonJS method.
-
-For example, in our `main` entry point module (`./src/main.ts`) we define a new
-chunk named `app` which corresponds to our main app module defined at `./src/app/index.ts`:
-
-```javascript
-// here we create a chunk named "app" containing all our Angular 2 app code
-// this chunk will be loaded asynchronously
-require.ensure(['./app'], (require) => {
-  require('./app').bootstrap(); // bootstrap our app
-}, 'app');
-```
-
-The resulting output will include a `main.js` file for our `main` entry point;
-along with a file called `app.chunk.js` for our `app` chunk. The `main.js` file
-will be included in our `index.html` file while `app.chunk.js` will be loaded asynchronously.
-
-A good explanation of code splitting and the motivation behind it can be found at
-[Advanced WebPack Part 2 - Code Splitting](http://jonathancreamer.com/advanced-webpack-part-2-code-splitting/).
