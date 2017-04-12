@@ -10,7 +10,7 @@
     "tslint": "tslint --force -e src/global.d.ts 'src/**/*.ts?(x)'"
   },
   "private": true,
-  "author": "Kraig Halfpap <kehalfpap@gmail.com> (http://halfpapstudios.com)",
+  "author": "Kraig Halfpap <kehalfpap@gmail.com> (https://halfpapstudios.com)",
   "license": "MIT",
   "dependencies": {
     "@angular/common": "~2.4.7",
@@ -34,7 +34,7 @@
     "zone.js": "~0.7.6"
   },
   "devDependencies": {
-    "@types/core-js": "~0.9.35",
+    "@types/core-js": "0.9.35",
     "@types/jasmine": "~2.5.41",
     "@types/lodash": "ts2.0",
     "@types/node": "~6.0.41",

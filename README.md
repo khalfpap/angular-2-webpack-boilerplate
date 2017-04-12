@@ -34,22 +34,21 @@ This project defines the basic project structure and build process needed to cre
 ### Requirements
 * [Node](https://nodejs.org/en/) >= 6.0
   ([Node Version Manager](https://github.com/creationix/nvm) is recommended)
-* [npm](https://docs.npmjs.com/) >= 3.0 (typically bundled with node)
+* [yarn](https://yarnpkg.com/lang/en/docs/install/) (`npm install -g yarn`)
 
 ### Installation
 ```bash
-npm install
+yarn install
 ```
 
 ---
 
 ## Tasks
-There are a number of tasks which can be executed using the npm scripts defined under
-`scripts` in `./package.json`
+Common development tasks are defined as `scripts` in `./package.json`.
 
 ### Launch Development Server
 ```bash
-npm start
+yarn start
 ```
 
 The `start` script executes Webpack using the development configuration
@@ -61,7 +60,7 @@ and automatically refresh the page with the latest changes.
 
 ### Generate Production Build
 ```bash
-npm run build
+yarn run build
 ```
 
 The `build` script executes Webpack using the production configuration
@@ -75,19 +74,19 @@ matching `./src/app/**/*.spec.ts`.
 
 #### Run Once
 ```bash
-npm test
+yarn test
 ```
 
 #### Run on Change
 ```bash
-npm run tests
+yarn run tests
 ```
 
 The `tests` script will continually monitor the project for changes and run the tests in response.
 
 ### Run TypeScript Linter
 ```bash
-npm run tslint
+yarn run tslint
 ```
 
 Runs TSLint against all TypeScript files in the `./src` folder and prints any violations
