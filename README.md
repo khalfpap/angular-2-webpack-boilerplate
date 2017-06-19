@@ -8,7 +8,7 @@ This project defines the basic project structure and build process needed to cre
 > recommend a well supported project such as [angular-cli](https://github.com/angular/angular-cli).
 
 ## Table of Contents
-- [Features](#features)
+* [Features](#features)
 * [Setup](#setup)
   * [Requirements](#requirements)
   * [Installation](#installation)
