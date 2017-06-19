@@ -25,6 +25,9 @@ module.exports = webpackMerge(commonConfig, {
   // configure the Webpack dev server
   devServer: {
     historyApiFallback: true,
-    stats: 'minimal'
+    stats: 'minimal',
+    watchOptions: {
+      poll: true
+    }
   }
 });
