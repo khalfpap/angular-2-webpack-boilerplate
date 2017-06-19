@@ -3,6 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const helpers = require('./helpers');
+const marked = require('marked');
+
+const renderer = new marked.Renderer();
+// add IDs to headers to support fragment navigation
+renderer.heading = function (text, level) {
+  const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+  return `<h${level} id="${escapedText}">${text}</h${level}>`;
+};
 
 module.exports = {
   entry: {
@@ -151,7 +159,12 @@ module.exports = {
         test: /\.md$/,
         use: [
           'html-loader',
-          'markdown-loader'
+          {
+            loader: 'markdown-loader',
+            options: {
+              renderer: renderer
+            }
+          }
         ]
       }
     ]

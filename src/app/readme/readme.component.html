@@ -3,4 +3,6 @@
     {{title}}
   </h2>
 </header>
-<md-card class="markdown-body" [innerHTML]="content"></md-card>
+<md-card>
+  <div #container class="markdown-body" [innerHTML]="content | trustHtml"></div>
+</md-card>
