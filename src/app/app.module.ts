@@ -18,7 +18,7 @@ import { ReadmeService } from './readme/readme.service';
 import { TodoService } from './todo/todo.service';
 
 import { InMemoryTodoService } from './todo/in-memory-todo.service';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryWebApiModule, InMemoryBackendConfigArgs } from 'angular-in-memory-web-api';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -34,7 +34,11 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryTodoService),
+    InMemoryWebApiModule.forRoot(
+      InMemoryTodoService,
+      {
+        delay: 0,
+      } as InMemoryBackendConfigArgs),
     MaterialModule.forRoot(),
     routing,
   ],
