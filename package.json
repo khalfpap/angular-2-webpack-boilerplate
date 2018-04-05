@@ -4,7 +4,7 @@
   "description": "Angular 2 - Webpack Boilerplate",
   "scripts": {
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-    "start": "webpack-dev-server --inline --progress --port 8080",
+    "start": "webpack-dev-server --inline --progress --port 8080 --open",
     "test": "karma start --single-run",
     "tests": "karma start",
     "tslint": "tslint --force -e src/global.d.ts 'src/**/*.ts?(x)'"
