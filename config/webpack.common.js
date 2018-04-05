@@ -20,7 +20,9 @@ module.exports = {
   },
   resolve: {
     // sets precedence for extension resolution of modules references with no extension
-    extensions: ['.js', '.ts', '.sass']
+    extensions: ['.js', '.ts', '.sass'],
+    // make it so webpack will first look in the src folder when resolving a non-relative module reference
+    modules: [helpers.root('src'), 'node_modules']
   },
   module: {
     rules: [
