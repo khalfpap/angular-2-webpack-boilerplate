@@ -5,7 +5,6 @@ import {
   Input,
   Output,
   ViewChild } from '@angular/core';
-import { MdInput }  from '@angular/material';
 
 @Component({
   selector: 'awb-input-dialog',
@@ -22,7 +21,7 @@ export class InputDialogComponent implements AfterViewInit {
 
   @Output() public valueEmitted = new EventEmitter<string>();
 
-  @ViewChild('input') public mdInput: MdInput;
+  @ViewChild('input') public input;
 
   constructor() {
     this.okText = 'OK';
@@ -34,7 +33,6 @@ export class InputDialogComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    // wait for MdInput to initialize; otherwise this breaks the component
-    setTimeout(() => this.mdInput.focus(), 0);
+    setTimeout(() => this.input.nativeElement.focus(), 0);
   }
 }

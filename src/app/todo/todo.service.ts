@@ -52,7 +52,9 @@ export class TodoService {
       .post(
         this.todosUrl,
         JSON.stringify({ title, completed }),
-        this.headers
+        {
+          headers: this.headers,
+        }
       )
       .toPromise()
       .then(res => res.json().data)

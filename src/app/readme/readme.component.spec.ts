@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '@angular/material';
+import {
+  MatCardModule,
+} from '@angular/material';
 import { By }              from '@angular/platform-browser';
 
 import { ReadmeComponent } from './readme.component';
@@ -25,7 +27,7 @@ describe('ReadmeComponent', () => {
         TrustHtmlPipe,
       ],
       imports: [
-        MaterialModule.forRoot(),
+        MatCardModule,
       ],
       providers: [
         {
@@ -43,7 +45,7 @@ describe('ReadmeComponent', () => {
     component = fixture.componentInstance;
 
     contentElement = fixture.debugElement.query(By.css('.markdown-body')).nativeElement;
-    mockContentService = fixture.debugElement.injector.get(ReadmeService);
+    mockContentService = fixture.debugElement.injector.get(ReadmeService) as MockContentService;
 
     mockActivatedRouteService = fixture.debugElement.injector.get(ActivatedRoute);
     mockActivatedRouteService.snapshot.fragment = '';

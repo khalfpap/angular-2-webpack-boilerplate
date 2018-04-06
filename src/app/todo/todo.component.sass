@@ -4,27 +4,36 @@
   border-bottom: 1px solid transparent
 
 .credit
-  margin: 15px
+  padding: 0 15px 15px
 
-.list-item
+.add-btn
+  color: white
+
+  mat-icon
+    font-size: 30px
+    width: 30px
+    height: 30px
+    margin-top: -3px
+
+.todo-item
   width: 100%
   display: flex
   border-bottom: 1px solid #ccc
 
   .checkbox
-    flex: 1 1 auto
-
-  /deep/ .md-checkbox-label
-    margin: 10px 0
+    align-items: center
+    flex: 1
+    display: flex
 
   button
     height: 34px
     flex: 0 0 34px
     margin: 5px 0 5px 5px
 
-    .material-icons
+    mat-icon
       font-size: 18px
       line-height: 18px
+      margin-top: -3px
 
   .completed
     color: #757575

@@ -5,7 +5,7 @@ import {
   Input,
   Output,
   ViewChild } from '@angular/core';
-import { MdButton }  from '@angular/material';
+import { MatButton }  from '@angular/material';
 
 @Component({
   selector: 'awb-alert-dialog',
@@ -21,7 +21,7 @@ export class AlertDialogComponent implements AfterViewInit {
 
   @Output() public valueEmitted = new EventEmitter<string>();
 
-  @ViewChild('cancel') public mdCancel: MdButton;
+  @ViewChild('cancel') public cancel: MatButton;
 
   constructor() {
     this.okText = 'OK';
@@ -34,6 +34,6 @@ export class AlertDialogComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     // wait for MdInput to initialize; otherwise this breaks the component
-    setTimeout(() => this.mdCancel.focus(), 0);
+    setTimeout(() => this.cancel.focus(), 0);
   }
 }

@@ -2,7 +2,17 @@ import { APP_BASE_HREF } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatSnackBarModule,
+  MatToolbarModule,
+} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { routing } from './app.routing';
@@ -31,6 +41,7 @@ import { InMemoryWebApiModule, InMemoryBackendConfigArgs } from 'angular-in-memo
     TrustHtmlPipe,
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -39,7 +50,14 @@ import { InMemoryWebApiModule, InMemoryBackendConfigArgs } from 'angular-in-memo
       {
         delay: 0,
       } as InMemoryBackendConfigArgs),
-    MaterialModule.forRoot(),
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatSnackBarModule,
+    MatToolbarModule,
     routing,
   ],
   providers: [

@@ -1,23 +1,26 @@
 <div class="overlay">
-  <md-card class="dialog">
-    <md-toolbar color="primary">
+  <mat-card class="dialog">
+    <mat-toolbar color="primary">
       {{title}}
-    </md-toolbar>
-    <md-card-content class="content">
-      <md-input #input
-                class="input"
-                [placeholder]="placeholder"
-                [(ngModel)]="value"
-                (keyup.enter)="emitValue(value)"
-                (keyup.escape)="emitValue(null)"></md-input>
-    </md-card-content>
-    <md-card-actions class="actions">
-      <button md-button
+    </mat-toolbar>
+    <mat-card-content class="content">
+      <mat-form-field>
+        <input #input
+               type="text"
+               matInput
+               [placeholder]="placeholder"
+               [(ngModel)]="value"
+               (keyup.enter)="emitValue(value)"
+               (keyup.escape)="emitValue(null)">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+      <button mat-button
               (click)="emitValue(null)"
               color="primary">{{cancelText}}</button>
-      <button md-raised-button
+      <button mat-raised-button
               (click)="emitValue(value)"
               color="primary">{{okText}}</button>
-    </md-card-actions>
-  </md-card>
+    </mat-card-actions>
+  </mat-card>
 </div>

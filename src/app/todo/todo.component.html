@@ -3,45 +3,45 @@
     {{title}}
   </h2>
 </header>
-<md-card class="todo-app">
-  <md-toolbar color="primary">
+<mat-card class="todo-app">
+  <mat-toolbar color="primary">
     Todo
     <span class="app-toolbar-filler"></span>
-    <button md-mini-fab (click)="showCreateTodoDialog()">
-      <md-icon>add</md-icon>
+    <button class="add-btn" mat-mini-fab (click)="showCreateTodoDialog()">
+      <mat-icon>add</mat-icon>
     </button>
-  </md-toolbar>
-  <md-card-content>
-    <md-list *ngIf="todos.length">
+  </mat-toolbar>
+  <mat-card-content>
+    <mat-list *ngIf="todos.length">
       <form>
-        <md-list-item *ngFor="let todo of todos; let index=index">
-          <div class="list-item">
-            <md-checkbox color="primary"
-                         class="checkbox"
-                         type="checkbox"
-                         [name]="'item'+index"
-                         (ngModelChange)="toggleCompleted(todo)"
-                         [ngModel]="todo.completed">
+        <mat-list-item *ngFor="let todo of todos; let index=index">
+          <div class="todo-item">
+            <mat-checkbox color="primary"
+                          class="checkbox"
+                          type="checkbox"
+                          [name]="'item'+index"
+                          (ngModelChange)="toggleCompleted(todo)"
+                          [ngModel]="todo.completed">
               <span [class.completed]="todo.completed">{{todo.title}}</span>
-            </md-checkbox>
-            <button md-mini-fab
+            </mat-checkbox>
+            <button mat-mini-fab
                     (click)="showEditDialog(todo)"
                     color="primary"
                     [disabled]="todo.completed">
-              <md-icon>mode_edit</md-icon>
+              <mat-icon>mode_edit</mat-icon>
             </button>
-            <button md-mini-fab
+            <button mat-mini-fab
                     (click)="showConfirmDeleteAlert(todo)"
                     color="warn">
-              <md-icon>delete</md-icon>
+              <mat-icon>delete</mat-icon>
             </button>
           </div>
-        </md-list-item>
+        </mat-list-item>
       </form>
-    </md-list>
+    </mat-list>
     <p class="credit"><em>Based on <a href="https://github.com/danielzen/material-todo">Material Todo</a></em></p>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
 <awb-input-dialog *ngIf="createTodoDialogIsVisible"
                   [title]="'New Todo'"
